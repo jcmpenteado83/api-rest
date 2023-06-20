@@ -29,16 +29,16 @@ class AgendamentoSerializer(serializers.ModelSerializer):
         data_horario = attrs.get("data_horario", "")
         telefone_cliente = attrs.get("telefone_cliente", "")
         email_cliente = attrs.get("email_cliente", "")
-        query = Agendamento.objects.filter(data_horario__day=data_horario.date().day, cancelado=False)
-        delta = timedelta(minutes=30)        
+        # query = Agendamento.objects.filter(data_horario__day=data_horario.date().day, cancelado=False)
+        # delta = timedelta(minutes=30)        
         
-        for i in query:            
-            if data_horario.date().day == i.data_horario.day and email_cliente == i.email_cliente:
-                raise serializers.ValidationError("Usuário já possui agendamento para o dia!")
-            elif i.data_horario == data_horario:
-                raise serializers.ValidationError("Horário já utilizado!")
-            elif data_horario > (i.data_horario - delta) and data_horario < (i.data_horario + delta):
-                raise serializers.ValidationError("É preciso de um intervalo de 30 minutos entre os agendamentos!")
+        # for i in query:            
+        #     if data_horario.date().day == i.data_horario.day and email_cliente == i.email_cliente:
+        #         raise serializers.ValidationError("Usuário já possui agendamento para o dia!")
+        #     elif i.data_horario == data_horario:
+        #         raise serializers.ValidationError("Horário já utilizado!")
+        #     elif data_horario > (i.data_horario - delta) and data_horario < (i.data_horario + delta):
+        #         raise serializers.ValidationError("É preciso de um intervalo de 30 minutos entre os agendamentos!")
             
         if email_cliente.endswith(".br") and telefone_cliente.startswith("+") and not telefone_cliente.startswith("+55"):
             raise serializers.ValidationError("E-mail brasileiro deve estar associado a um número do Brasil (+55)")
